@@ -1,0 +1,30 @@
+body{
+    background-color: #292929;
+
+}
+
+.col-sm-2 h1{
+    color: #fff; /* culoarea in adminca */
+}
+
+.col-sm-10{
+    background-color: #fff;
+    color: #292929
+}
+/* #side_menu a{
+    color:#9fb1c2
+} */
+.dropdown-item .active a{
+    color: #fff;
+    background-color: #27aae1;
+    font-weight: bold;
+}
+.dropdown-item:hover{
+
+    background-color :#27aae1;
+    font-weight: bold;
+}
+.dropdown-item a{
+    color: #fff;
+    text-decoration: none;font-weight: bold;
+}
