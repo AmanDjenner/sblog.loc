@@ -14,17 +14,26 @@ body{
 /* #side_menu a{
     color:#9fb1c2
 } */
-.dropdown-item .active a{
+#side_menu .active a{
     color: #fff;
     background-color: #27aae1;
     font-weight: bold;
 }
-.dropdown-item:hover{
+#side_menu a:hover{
 
     background-color :#27aae1;
     font-weight: bold;
 }
-.dropdown-item a{
+#side_menu a{
     color: #fff;
     text-decoration: none;font-weight: bold;
+}
+
+#footer {
+    height: 174px;
+    background-color: rgb(54, 53, 53);
+    color: #fff;
+}
+#footer p{
+    padding: 15px;
 }
