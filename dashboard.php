@@ -1,3 +1,5 @@
+<?php require_once("include/Sessions.php");?>
+<?php require_once("include/Functions.php");?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -26,38 +28,43 @@
             <div class="col-sm-2">
 
                 <h1>Adminka </h1>
-
-
-                <ulid="side_menu" class="nav nav-pills nav-stacked">
-                    <li class=" active dropdown-item"><a  href="dashboard.php">
-                        <span class="glyphicon glyphicon-th"></span>
-                    Dashboard</a></li>
-                    <li><a  href="#">
-                    <span class="glyphicon glyphicon-list-alt"></span>
-                    Post nou</a></li>
-                    <li><a  href="categories.php">
-                    <span class="glyphicon glyphicon-tags"></span>
-                    Categorii</a></li>
+                <ul id="side_menu" class="nav nav-pills nav-stacked">
+                    <li><a  href="dashboard.php">
+                            <span class="glyphicon glyphicon-th"></span>
+                            &nbsp;Dashboard</a></li>
+                    <li><a  href="AddNewPost.php">
+                            <span class="glyphicon glyphicon-list-alt"></span>
+                            &nbsp;Post nou</a></li>
+                    <li><a  href="Categories.php">
+                            <span class="glyphicon glyphicon-tags"></span>
+                            &nbsp;Categorii</a></li>
                     <li><a  href="#"><span class="glyphicon glyphicon-user"></span>
-                    Utilizatori</a></li>
+                            &nbsp;Utilizatori</a></li>
                     <li><a  href="#">
-                    <span class="glyphicon glyphicon-user"></span>
-                    Administrator</a></li>
+                            <span class="glyphicon glyphicon-user"></span>
+                            &nbsp;Administrator</a></li>
                     <li><a  href="#">
-                    <span class="glyphicon glyphicon-comment"></span>
-                    Comentarii</a></li>
+                            <span class="glyphicon glyphicon-comment"></span>
+                            &nbsp;Comentarii</a></li>
                     <li><a  href="#">
-                    <span class="glyphicon glyphicon-equalizer"></span>
-                    Live Blog</a></li>
+                            <span class="glyphicon glyphicon-equalizer"></span>
+                            &nbsp;Live Blog</a></li>
                     <li><a  href="#">
-                    <span class="glyphicon glyphicon-log-out"></span>
-                    Iesire</a></li>
+                            <span class="glyphicon glyphicon-log-out"></span>
+                            &nbsp;Iesire</a></li>
                 </ul>
 
              </div><!-- end side areea -->
             <div class="col-sm-10">
                 <div class="page-header">
+
                     <h1>PANOUL DE ADMINISTRARE</h1>
+                    <div>
+                        <?php
+                             echo Message();
+                             echo SuccessMessage();
+                         ?>
+                    </div>
                 </div>
                 <h4>About</h4>
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita animi adipisci recusandae asperiores eveniet velit cum natus cupiditate. Reiciendis iste earum id dolores voluptate beatae error vero et dolorem modi.</p>
