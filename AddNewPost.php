@@ -8,8 +8,10 @@ if(isset($_POST["Submit"])) {
     $Post = mysqli_real_escape_string($Connection, $_POST["Post"]);
     date_default_timezone_set("Moldova/Chisinau");
     $CurrentTime = time();
-    $DateTime = strftime("%d-%b-%Y %H:%M:%S", $CurrentTime);
-    $DateTime;
+    $Data = strftime("%%d-%b-%Y ", $CurrentTime);
+    $Time = strftime("%H:%M:%S", $CurrentTime);
+    $Data;
+    $Time;
     $Admin="Verdes Gheorghi";
     $Image=$_FILES["Image"]["name"];
     $Target="Uploads/images/".basename($_FILES["Image"]["name"]);
@@ -17,7 +19,7 @@ if(isset($_POST["Submit"])) {
         /** @var TYPE_NAME $_SESSION */
         $_SESSION["ErrorMessage"] = "Indicati titlul!";
         Redirect_to("AddNewPost.php");
-    }elseif(strlen($Title)>50) {
+    }elseif(strlen($Title)>150) {
         $_SESSION["ErrorMessage"] = "Ati introdus un nume prea mare.";
         Redirect_to("AddNewPost.php");
     }elseif(strlen($Title)<5) {
@@ -25,9 +27,9 @@ if(isset($_POST["Submit"])) {
         Redirect_to("AddNewPost.php");
     }else{
         $Query = "INSERT into admin_panel
-                    (datatime,title,category,autor,image,post)
+                    (data,time,title,category,autor,image,post)
         VALUES
-                    ('$DateTime','$Title','$Category','$Admin','$Image','$Post')";
+                    ('$Data','$Time','$Title','$Category','$Admin','$Image','$Post')";
         $Execute=mysqli_query(  $Connection, $Query);
         move_uploaded_file($_FILES["Image"]["tmp_name"],$Target);
         if ($Execute){
@@ -120,9 +122,9 @@ if(isset($_POST["Submit"])) {
                             <label for="categoryselect"><span class="FieldInfo">Categorie:</span></label>
                             <select class="form-control" id="categoryselect" name="Category"   placeholder="Selecteaza categoria" >
                         <?php
-                        $VieWQuery="SELECT  * FROM category ORDER BY datatime DESC";
+                        $VieWQuery="SELECT  * FROM category ORDER BY data AND time DESC";
                         $Execute=mysqli_query($Connection, $VieWQuery);
-                        While($DataRows=mysqli_fetch_array( $Execute)){
+                        While($DataRows=mysqli_fetch_array($Execute)){
                         $Id=$DataRows["id"];
                         $Nume=$DataRows["nume"];
                         ?>

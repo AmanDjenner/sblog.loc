@@ -6,8 +6,10 @@ if(isset($_POST["Submit"])) {
     $Category = mysqli_real_escape_string($Connection, $_POST["Category"]);
     date_default_timezone_set("Moldova/Chisinau");
     $CurrentTime = time();
-    $DateTime = strftime("%d-%b-%Y %H:%M:%S", $CurrentTime);
-    $DateTime;
+    $Data = strftime("%d-%b-%Y", $CurrentTime);
+    $Time = strftime("%H:%M:%S", $CurrentTime);
+    $Data;
+    $Time;
 
     $Admin="Verdes Gheorghi";
     if(empty($Category)) {
@@ -21,9 +23,9 @@ if(isset($_POST["Submit"])) {
 
 
         $Query = "INSERT into category 
-                    (datatime,nume,creatorname)
+                    (data,time,nume,creatorname)
         VALUES
-                    ('$DateTime','$Category','$Admin')";
+                    ('$Data','$Time','$Category','$Admin')";
         $result=mysqli_query(  $Connection, $Query);
         if ($result){
         $_SESSION["SuccessMessage"] = "Categoria a fost adaugata cu succes.";
@@ -139,24 +141,27 @@ if(isset($_POST["Submit"])) {
                     <tr>
                         <th>ID</th>
                         <th>Data</th>
+                        <th>Ora</th>
                         <th>Categorie</th>
                         <th>Autor</th>
                     </tr>
                     <?php
-                    $VieWQuery="SELECT  * FROM category ORDER BY datatime DESC";
+                    $VieWQuery="SELECT  * FROM category ORDER BY data AND time DESC";
                     $Execute=mysqli_query($Connection, $VieWQuery);
                     $SRno=0;
 
                     While($DataRows=mysqli_fetch_array( $Execute)){
                         $Id=$DataRows["id"];
-                        $DataTame=$DataRows["datatime"];
+                        $Data=$DataRows["data"];
+                        $Time=$DataRows["time"];
                         $Nume=$DataRows["nume"];
                         $CreatorName=$DataRows["creatorname"];
                         $SRno++
                     ?>
                     <tr>
                         <td><?php echo $SRno; ?></td>
-                        <td><?php echo $DataTame; ?></td>
+                        <td><?php echo $Data; ?></td>
+                        <td><?php echo $Time; ?></td>
                         <td><?php echo $Nume; ?></td>
                         <td><?php echo $CreatorName; ?></td>
                     </tr>

@@ -1,0 +1,30 @@
+body{
+
+}
+.navbar-nav li{
+
+     font-family: Bitter, Georgia, Times,"Times New Roman",Serif;
+
+
+ }
+.content{
+    padding-bottom: 1rem;
+}
+/*section{*/
+/*    box-shadow: 7px 7px 5px rgba(0,0,0,0.6);*/
+
+/*}*/
+.thumbail img{
+    width: 250px;
+   height: 250px;
+}
+
+
+#footer {
+    height: 174px;
+    background-color: rgb(54, 53, 53);
+    color: #fff;
+}
+#footer p{
+    padding: 15px;
+}
