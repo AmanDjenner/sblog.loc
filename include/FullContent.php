@@ -1,13 +1,17 @@
+
+
     <?php
-    global $Connection;
-        if (isset($_GET["SearchButton"])){
+
+
+    if (isset($_GET["SearchButton"])){
             $Search=$_GET["Search"];
             $ViewQuery="SELECT * FROM admin_panel 
                                 WHERE data LIKE '%$Search%' OR title LIKE '%$Search%'
                                         OR category LIKE '%$Search%' OR post LIKE '%$Search%'";
         }else{
             $PostIDFromURL=$_GET["id"];
-            $ViewQuery="SELECT * FROM admin_panel where id='$PostIDFromURL' ORDER BY data AND time DESC ";}
+            $ViewQuery="SELECT * FROM admin_panel where id='$PostIDFromURL' ORDER BY data AND time DESC ";
+    }
             $Execute=mysqli_query($Connection ,$ViewQuery);
         While($DataRows= mysqli_fetch_array($Execute)){
         $PostID = $DataRows["id"];
@@ -17,25 +21,67 @@
         $Autor = $DataRows["autor"];
         $Image = $DataRows["image"];
         $Post = $DataRows["post"];
+    global $Connection;
+    if (isset($_POST["Submit"])) {
+        $Name = mysqli_real_escape_string($Connection, $_POST["Name"]);
+        $Email = mysqli_real_escape_string($Connection, $_POST["Email"]);
+        $Comment = mysqli_real_escape_string($Connection, $_POST["Comment"]);
+        date_default_timezone_set("Moldova/Chisinau");
+        $CurrentTime = time();
+        $DataTime = strftime("%d-%b-%Y %H:%M", $CurrentTime);
+
+        if (empty($Name)|| empty($Email) || empty($Comment)) {
+            /** @var TYPE_NAME $_SESSION */
+            $_SESSION["ErrorMessage"] = "Completați toate campurile";
+        } elseif (strlen($Comment) > 500) {
+            $_SESSION["ErrorMessage"] = "Un comentariu nu poate fi mai mare de 500 simboluri";
+        } elseif (strlen($Comment) < 10) {
+            $_SESSION["ErrorMessage"] = "Un comentariu nu poate fi mai mic de 10 simboluri";
+        } else {
+            $PostID=$_GET["id"];
+            $Query="INSERT INTO comments (datatime,name,email,comment,status,admin_panel_id)
+                        VALUES ('$DataTime', '$Name', '$Email','$Comment', 'OFF','$PostIDFromURL')";
+            $Execute = mysqli_query($Connection, $Query);
+            if ($Execute) {
+                $_SESSION["SuccessMessage"] = "Comentariul a fost adaugat cu succes.";
+                Redirect_to("FullPost.php?id={$PostIDFromURL}");
+            } else {
+                $_SESSION["ErrorMessage"] = "Comentariul nu a fost adaugat.";
+                Redirect_to("FullPost.php?id={$PostIDFromURL}");
+            }
+
+        }
+
+    }
+
     ?>
-<div class="container">
+<div class="container"><br>
     <div class="blog-header">
+
+
     </div>
     <div class="row">
+
                 <div class="content col-lg-9 col-sm-12">
+                    <?php
+                    echo Message();
+                    echo SuccessMessage();
+                    ?>
                     <section>
                                    <div class="d-flex flex-column Small shadow" >
+                                       <div class="thumbail d-flex align-items-center justify-content-sm-center p-2 col-lg-12 col-sm-12">
+                                           <img src="Uploads/images/<?php echo $Image ?>" alt="<?php echo $Title ?>">
+                                       </div>
                                        <div class="d-flex flex-lg-row flex-sm-column p-4 my-3 ">
+
                                            <div class="d-flex flex-column"><h1><?php echo $Title ?></h1>
                                                <p class="lead">
                                                    <strong>Categoria:</strong> <?php echo $Category?>
                                                         <span class="p-2"><i class="fa fa-calendar" ></i></span>
                                                             <strong>Adăugat la:</strong> <?php echo $Data ?></p>
-                                               <div class="d-flex flex-row">
-                                                   <div class="thumbail d-flex align-items-center justify-content-sm-center p-2 col-lg-4 col-sm-12">
-                                                       <img src="Uploads/images/<?php echo $Image ?>" alt="<?php echo $Title ?>">
-                                                   </div>
-                                                   <div class="d-flex flex-column col-lg-8 col-sm-12">
+                                               <div class="d-flex flex-column">
+
+                                                   <div class="d-flex flex-column col-lg-12 col-sm-12">
                                                        <!--                           <div class="title ">-->
                                                        <!--                               <a href="FullPost.php?id=--><?// echo $PostID ?><!-- " class="text-decoration-none text-primary text-uppercase"><h4>--><?php //echo $Title ?><!--</h4></a>-->
                                                        <!--                               <p><b>Categoria:</b> --><?php //echo $Category?><!-- <span class="p-2"><i class="fa fa-calendar" ></i></span> <b>Adăugat la:</b> --><?php //echo $Data ?><!--</p>-->
@@ -62,5 +108,41 @@
 
                             <?php } ?>
                     </section>
+                    <br>
+                    <br>
+                    <br>
+                    <div class="card card-body"">
+                    <h5 class="card-title">Adaugă comentariu:</h5>
+                        <form action="FullPost.php?id=<?php echo $PostID; ?>" method="post" enctype="multipart/form-data">
+                            <fieldset>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1">Nume:</span>
+                                    </div>
+                                    <input type="text" name="Name" class="form-control" placeholder="Name" aria-label="Name" aria-describedby="basic-addon1">
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1">E-mail:</span>
+                                    </div>
+                                    <input type="email" name="Email" class="form-control" placeholder="E-mail" aria-label="E-mail" aria-describedby="basic-addon1">
+                                </div>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Comentariu:</span>
+                                    </div>
+                                    <textarea name="Comment" class="form-control" aria-label="coment"></textarea>
+                                </div>
+
+
+                                <br>
+                                <input class="btn btn-success btn-block" type="Submit" name="Submit" value="Adaugă commentariu">
+
+                            </fieldset>
+                            <br>
+                        </form>
+
+                    </div>
         </div>
+
 

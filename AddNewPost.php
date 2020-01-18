@@ -8,7 +8,7 @@ if(isset($_POST["Submit"])) {
     $Post = mysqli_real_escape_string($Connection, $_POST["Post"]);
     date_default_timezone_set("Moldova/Chisinau");
     $CurrentTime = time();
-    $Data = strftime("%%d-%b-%Y ", $CurrentTime);
+    $Data = strftime("%d-%b-%Y ", $CurrentTime);
     $Time = strftime("%H:%M:%S", $CurrentTime);
     $Data;
     $Time;
@@ -104,11 +104,7 @@ if(isset($_POST["Submit"])) {
         <div class="col-sm-10">
             <div class="page-header">
                 <h1>Adauga un post</h1>
-                <div><?php
-                    echo Message();
-                    echo SuccessMessage();
-                    ?>
-                </div>
+
             </div>
             <div>
                 <form action="AddNewPost.php" method="post" enctype="multipart/form-data">

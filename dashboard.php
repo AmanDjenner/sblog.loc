@@ -114,11 +114,12 @@
                         <?php echo $Autor?></td>
                     <td>Processing</td>
                     <td>
+
                         <a href="EditPost.php?Edit=<?php echo $PostID; ?>" target="_blank">
                             <span class="btn btn-warning">
                                 <i class="fa fa-pencil" aria-hidden="true"></i></span>
                         </a>
-                        <a href="DeletePost.php?Delete=<?php echo $PostID; ?>">
+                        <a href="DeletePost.php?id=<?php echo $PostID; ?>">
                             <span class="btn btn-danger">
                                 <i class="fa fa-trash" aria-hidden="true"></i></span>
                         </a>

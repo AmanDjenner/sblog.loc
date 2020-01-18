@@ -37,7 +37,7 @@
                            <div class="post">
                                <p>
                                    <?php
-                                       echo substr( $Post, 150).' ...';
+                                       echo substr( $Post, 0,250 ).' ...';
 
                                    ?>
                                </p>
