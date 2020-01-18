@@ -1,3 +1,4 @@
+<?php require_once("include/DB.php");?>
 <?php require_once("include/Sessions.php");?>
 <?php require_once("include/Functions.php");?>
 <!DOCTYPE html>
@@ -19,8 +20,10 @@
     <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> -->
     <!-- //<link rel="stylesheet" href="/css/bootstrap.min.css"> -->
     <link rel="stylesheet" href="/css/adminstyles.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    </ head>
+
+    </head>
 
 <body>
    <div class="container-fluid">
@@ -55,6 +58,9 @@
                 </ul>
 
              </div><!-- end side areea -->
+<!--            navbar-->
+
+<!--            navbar-->
             <div class="col-sm-10">
                 <div class="page-header">
 
@@ -66,18 +72,66 @@
                          ?>
                     </div>
                 </div>
-                <h4>About</h4>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita animi adipisci recusandae asperiores eveniet velit cum natus cupiditate. Reiciendis iste earum id dolores voluptate beatae error vero et dolorem modi.</p>
-                <h4>About</h4>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita animi adipisci recusandae asperiores eveniet velit cum natus cupiditate. Reiciendis iste earum id dolores voluptate beatae error vero et dolorem modi.</p>
-                <h4>About</h4>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita animi adipisci recusandae asperiores eveniet velit cum natus cupiditate. Reiciendis iste earum id dolores voluptate beatae error vero et dolorem modi.</p>
-                <h4>About</h4>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita animi adipisci recusandae asperiores eveniet velit cum natus cupiditate. Reiciendis iste earum id dolores voluptate beatae error vero et dolorem modi.</p>
-                <h4>About</h4>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita animi adipisci recusandae asperiores eveniet velit cum natus cupiditate. Reiciendis iste earum id dolores voluptate beatae error vero et dolorem modi.</p>
-                <h4>About</h4>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita animi adipisci recusandae asperiores eveniet velit cum natus cupiditate. Reiciendis iste earum id dolores voluptate beatae error vero et dolorem modi.</p>
+                <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <tr>
+                            <th>No</th>
+                            <th>Imagine</th>
+                            <th>Titlu</th>
+                            <th>Data</th>
+                            <th>Categorie</th>
+                            <th>Autor</th>
+                            <th>Comentarii</th>
+                            <th>Actiune</th>
+                    </tr>
+                <?php
+                global $Connection;
+                $ViewQuery="SELECT * FROM admin_panel ORDER BY data AND time DESC ";
+                $Execute=mysqli_query($Connection ,$ViewQuery);
+                $SrNo=0;
+                While($DataRows= mysqli_fetch_array($Execute)){
+                $PostID = $DataRows["id"];
+                $Title = $DataRows["title"];
+                $Data = $DataRows["data"];
+                $Category = $DataRows["category"];
+                $Autor = $DataRows["autor"];
+                $Image = $DataRows["image"];
+                $Post = $DataRows["post"];
+                    $SrNo++;
+                ?>
+                <tr class="justify-content-center">
+                    <td><?php echo $SrNo?></td>
+                    <td><img src="Uploads/images/<?php echo $Image?>" width="35px" height="35px" </td>
+                    <td>
+                        <?php
+                            if (strlen($Title)>66){$Title= substr($Title,0,66)."...";}
+                                echo $Title
+                        ?>
+                    </td>
+                    <td width="100px"><?php echo $Data?></td>
+                    <td><?php echo $Category?></td>
+                    <td class="post-author">
+                        <?php echo $Autor?></td>
+                    <td>Processing</td>
+                    <td>
+                        <a href="EditPost.php?Edit=<?php echo $PostID; ?>" target="_blank">
+                            <span class="btn btn-warning">
+                                <i class="fa fa-pencil" aria-hidden="true"></i></span>
+                        </a>
+                        <a href="DeletePost.php?Delete=<?php echo $PostID; ?>">
+                            <span class="btn btn-danger">
+                                <i class="fa fa-trash" aria-hidden="true"></i></span>
+                        </a>
+                        <a href="FullPost.php?id=<?php echo $PostID; ?>" target="_blank">
+                            <span class="btn btn-success">
+                                <i class="fa fa-eye" aria-hidden="true"></i></span>
+                        </a>
+                    </td>
+                </tr>
+
+                <?php } ?>
+
+                </table></div>
             </div><!-- end main areea -->
         </div><!-- container-fluid -->
    </div>

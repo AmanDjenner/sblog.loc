@@ -20,31 +20,37 @@
     ?>
 <div class="container">
     <div class="blog-header">
-        <h1><?php echo $Title ?></h1>
-        <p class="lead"><b>Categoria:</b> <?php echo $Category?> <span class="p-2"><i class="fa fa-calendar" ></i></span> <b>Adăugat la:</b> <?php echo $Data ?></p>
     </div>
     <div class="row">
                 <div class="content col-lg-9 col-sm-12">
                     <section>
                                    <div class="d-flex flex-column Small shadow" >
                                        <div class="d-flex flex-lg-row flex-sm-column p-4 my-3 ">
-                                           <div class="thumbail d-flex align-items-center justify-content-sm-center p-2 col-lg-4 col-sm-12">
-                                               <img src="Uploads/images/<?php echo $Image ?>" alt="<?php echo $Title ?>">
-                                           </div>
-                                           <div class="d-flex flex-column col-lg-8 col-sm-12">
-                                               <!--                           <div class="title ">-->
-                                               <!--                               <a href="FullPost.php?id=--><?// echo $PostID ?><!-- " class="text-decoration-none text-primary text-uppercase"><h4>--><?php //echo $Title ?><!--</h4></a>-->
-                                               <!--                               <p><b>Categoria:</b> --><?php //echo $Category?><!-- <span class="p-2"><i class="fa fa-calendar" ></i></span> <b>Adăugat la:</b> --><?php //echo $Data ?><!--</p>-->
-                                               <!--                           </div>-->
-                                               <div class="post">
-                                                   <p>
-                                                       <?php
-                                                       echo $Post;
+                                           <div class="d-flex flex-column"><h1><?php echo $Title ?></h1>
+                                               <p class="lead">
+                                                   <strong>Categoria:</strong> <?php echo $Category?>
+                                                        <span class="p-2"><i class="fa fa-calendar" ></i></span>
+                                                            <strong>Adăugat la:</strong> <?php echo $Data ?></p>
+                                               <div class="d-flex flex-row">
+                                                   <div class="thumbail d-flex align-items-center justify-content-sm-center p-2 col-lg-4 col-sm-12">
+                                                       <img src="Uploads/images/<?php echo $Image ?>" alt="<?php echo $Title ?>">
+                                                   </div>
+                                                   <div class="d-flex flex-column col-lg-8 col-sm-12">
+                                                       <!--                           <div class="title ">-->
+                                                       <!--                               <a href="FullPost.php?id=--><?// echo $PostID ?><!-- " class="text-decoration-none text-primary text-uppercase"><h4>--><?php //echo $Title ?><!--</h4></a>-->
+                                                       <!--                               <p><b>Categoria:</b> --><?php //echo $Category?><!-- <span class="p-2"><i class="fa fa-calendar" ></i></span> <b>Adăugat la:</b> --><?php //echo $Data ?><!--</p>-->
+                                                       <!--                           </div>-->
+                                                       <div class="post">
+                                                           <p>
+                                                               <?php
+                                                               echo $Post;
 
-                                                       ?>
-                                                   </p>
-                                           </div>
-                                       </div>
+                                                               ?>
+                                                           </p>
+                                                       </div>
+                                               </div>
+                                            </div>
+                                        </div>
                                    </div>
                                        <div> <hr>
                                            <br>
