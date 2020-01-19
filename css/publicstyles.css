@@ -18,6 +18,13 @@ body{
     width: 100%;
 
 }
+.CommentBlock{
+    background-color:#efefef;
+    width: -webkit-fill-available;
+}
+.commentbyuser{
+    font-size: 1.1em;
+}
 
 
 #footer {

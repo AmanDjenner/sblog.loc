@@ -1,8 +1,39 @@
 
 
     <?php
+    global $Connection;
+        if (isset($_POST["Submit"])) {
+            $Name = mysqli_real_escape_string($Connection, $_POST["Name"]);
+            $Email = mysqli_real_escape_string($Connection, $_POST["Email"]);
+            $Comment = mysqli_real_escape_string($Connection, $_POST["Comment"]);
+            date_default_timezone_set("Moldova/Chisinau");
+            $CurrentTime = time();
+            $DataTime = strftime("%d-%b-%Y %H:%M", $CurrentTime);
+            $PostID2=$_GET["id"];
+            if (empty($Name)|| empty($Email) || empty($Comment)) {
+                /** @var TYPE_NAME $_SESSION */
+                $_SESSION["ErrorMessage"] = "Completați toate campurile";
+            } elseif (strlen($Comment) > 500) {
+                $_SESSION["ErrorMessage"] = "Un comentariu nu poate fi mai mare de 500 simboluri";
+            } elseif (strlen($Comment) < 10) {
+                $_SESSION["ErrorMessage"] = "Un comentariu nu poate fi mai mic de 10 simboluri";
+            } else {
 
+                $Query="INSERT INTO comments (datatime,name,email,comment,status,admin_panel_id)
+                        VALUES ('$DataTime', '$Name', '$Email','$Comment', 'OFF','$PostID2')";
+                $Execute = mysqli_query($Connection, $Query);
+                if ($Execute) {
+                    $_SESSION["SuccessMessage"] = "Comentariul a fost adaugat cu succes.";
+/*                    Redirect_to("FullPost.php?id=<?php echo $PostID2; ?>");*/
+                } else {
+                    $_SESSION["ErrorMessage"] = "Comentariul nu a fost adaugat.";
+/*                    Redirect_to("FullPost.php?id=<?php echo $PostID2; ?>");*/
+                }
 
+            }
+
+        }
+?><?php
     if (isset($_GET["SearchButton"])){
             $Search=$_GET["Search"];
             $ViewQuery="SELECT * FROM admin_panel 
@@ -10,8 +41,7 @@
                                         OR category LIKE '%$Search%' OR post LIKE '%$Search%'";
         }else{
             $PostIDFromURL=$_GET["id"];
-            $ViewQuery="SELECT * FROM admin_panel where id='$PostIDFromURL' ORDER BY data AND time DESC ";
-    }
+            $ViewQuery="SELECT * FROM admin_panel where id='$PostIDFromURL' ORDER BY data AND time DESC ";}
             $Execute=mysqli_query($Connection ,$ViewQuery);
         While($DataRows= mysqli_fetch_array($Execute)){
         $PostID = $DataRows["id"];
@@ -21,39 +51,6 @@
         $Autor = $DataRows["autor"];
         $Image = $DataRows["image"];
         $Post = $DataRows["post"];
-    global $Connection;
-    if (isset($_POST["Submit"])) {
-        $Name = mysqli_real_escape_string($Connection, $_POST["Name"]);
-        $Email = mysqli_real_escape_string($Connection, $_POST["Email"]);
-        $Comment = mysqli_real_escape_string($Connection, $_POST["Comment"]);
-        date_default_timezone_set("Moldova/Chisinau");
-        $CurrentTime = time();
-        $DataTime = strftime("%d-%b-%Y %H:%M", $CurrentTime);
-
-        if (empty($Name)|| empty($Email) || empty($Comment)) {
-            /** @var TYPE_NAME $_SESSION */
-            $_SESSION["ErrorMessage"] = "Completați toate campurile";
-        } elseif (strlen($Comment) > 500) {
-            $_SESSION["ErrorMessage"] = "Un comentariu nu poate fi mai mare de 500 simboluri";
-        } elseif (strlen($Comment) < 10) {
-            $_SESSION["ErrorMessage"] = "Un comentariu nu poate fi mai mic de 10 simboluri";
-        } else {
-            $PostID=$_GET["id"];
-            $Query="INSERT INTO comments (datatime,name,email,comment,status,admin_panel_id)
-                        VALUES ('$DataTime', '$Name', '$Email','$Comment', 'OFF','$PostIDFromURL')";
-            $Execute = mysqli_query($Connection, $Query);
-            if ($Execute) {
-                $_SESSION["SuccessMessage"] = "Comentariul a fost adaugat cu succes.";
-                Redirect_to("FullPost.php?id={$PostIDFromURL}");
-            } else {
-                $_SESSION["ErrorMessage"] = "Comentariul nu a fost adaugat.";
-                Redirect_to("FullPost.php?id={$PostIDFromURL}");
-            }
-
-        }
-
-    }
-
     ?>
 <div class="container"><br>
     <div class="blog-header">
@@ -110,6 +107,29 @@
                     </section>
                     <br>
                     <br>
+                    <span class="FieldInfo">Comentarii</span>
+                    <?php
+                    $Connection;
+                    $PostIDFromComments=$_GET['id'];
+                    $ExtatingCommentsQuery="SELECT * FROM comments";
+                        $Execute=mysqli_query($Connection, $ExtatingCommentsQuery);
+                    While($DataRows= mysqli_fetch_array($Execute)) {
+                        $CommentData = $DataRows["datatime"];
+                        $CommenterName = $DataRows["name"];
+                        $Comments = $DataRows["comment"];
+
+                    ?>
+                    <div class=" d-flex flex-row border border-light rounded" >
+                        <img class="float-left p-3" src="../img/avatar/no-avatar.png" alt="no-avatar" width="85px" height="100px">
+                       <div class=" CommentBlock d-flex flex-column m-2 rounded " >
+                          <div class="mx-3  text-info font-weight-bold"> <span class="text-dark">Nume: </span><?php echo $CommenterName; ?></div>
+                           <div class="mx-3 pb-1 text-secondary border-bottom  border-secondary"><span class=" text-dark font-weight-bold">Adăugat la: </span><?php echo $CommentData; ?></div>
+                               <div class=" commentbyuser mb-3 mx-3"><?php echo $Comments;  ?></div>
+                       </div>
+
+                    </div> <br>
+<?php } ?>
+
                     <br>
                     <div class="card card-body"">
                     <h5 class="card-title">Adaugă comentariu:</h5>
