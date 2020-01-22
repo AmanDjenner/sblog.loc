@@ -4,6 +4,8 @@ date_default_timezone_set("Moldova,Chisinau");
 $CurrentTime = time();
 $DateTime=strftime("%H:%M:%S",$CurrentTime);
 $DateData=strftime("%d-%b-%Y",$CurrentTime);
+$DateDataALL=strftime("%d-%b-%Y %H:%M:%S",$CurrentTime);
+
 
 echo $DateTime;
 

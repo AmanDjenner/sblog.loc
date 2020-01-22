@@ -68,38 +68,8 @@ if(isset($_POST["Submit"])) {
 
 <body>
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-sm-2">
-            <h1>Adminka</h1>
-
-            <ul id="side_menu" class="nav nav-pills nav-stacked">
-            <li><a  href="dashboard.php">
-                    <span class="glyphicon glyphicon-th"></span>
-                    &nbsp;Dashboard</a></li>
-            <li><a  href="AddNewPost.php">
-                    <span class="glyphicon glyphicon-list-alt"></span>
-                    &nbsp;Post nou</a></li>
-            <li><a  href="Categories.php">
-                    <span class="glyphicon glyphicon-tags"></span>
-                    &nbsp;Categorii</a></li>
-            <li><a  href="#"><span class="glyphicon glyphicon-user"></span>
-                    &nbsp;Utilizatori</a></li>
-            <li><a  href="#">
-                    <span class="glyphicon glyphicon-user"></span>
-                    &nbsp;Administrator</a></li>
-            <li><a  href="#">
-                    <span class="glyphicon glyphicon-comment"></span>
-                    &nbsp;Comentarii</a></li>
-            <li><a  href="#">
-                    <span class="glyphicon glyphicon-equalizer"></span>
-                    &nbsp;Live Blog</a></li>
-            <li><a  href="#">
-                    <span class="glyphicon glyphicon-log-out"></span>
-                    &nbsp;Iesire</a></li>
-            </ul>
-
-        </div><!-- end side areea -->
-        <div class="col-sm-10">
+    <?php include "include/adminMeniu.php"?>
+        <div class="panou col-sm-10">
             <div class="page-header">
                 <h1>Update post</h1>
                 <div><?php

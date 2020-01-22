@@ -24,7 +24,7 @@
                 $Execute = mysqli_query($Connection, $Query);
                 if ($Execute) {
                     $_SESSION["SuccessMessage"] = "Comentariul a fost adaugat cu succes.";
-/*                    Redirect_to("FullPost.php?id=<?php echo $PostID2; ?>");*/
+//                   Redirect_to("FullPost.php?id={$PostID2}");
                 } else {
                     $_SESSION["ErrorMessage"] = "Comentariul nu a fost adaugat.";
 /*                    Redirect_to("FullPost.php?id=<?php echo $PostID2; ?>");*/
@@ -111,7 +111,8 @@
                     <?php
                     $Connection;
                     $PostIDFromComments=$_GET['id'];
-                    $ExtatingCommentsQuery="SELECT * FROM comments";
+                    $ExtatingCommentsQuery="SELECT * FROM comments
+                    WHERE admin_panel_id='$PostIDFromComments' AND status='on'";
                         $Execute=mysqli_query($Connection, $ExtatingCommentsQuery);
                     While($DataRows= mysqli_fetch_array($Execute)) {
                         $CommentData = $DataRows["datatime"];
@@ -133,7 +134,7 @@
                     <br>
                     <div class="card card-body"">
                     <h5 class="card-title">Adaugă comentariu:</h5>
-                        <form action="FullPost.php?id=<?php echo $PostID; ?>" method="post" enctype="multipart/form-data">
+                        <form action="FullPost.php?id=<?php echo $PostIDFromComments ?>" method="post" enctype="multipart/form-data">
                             <fieldset>
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
