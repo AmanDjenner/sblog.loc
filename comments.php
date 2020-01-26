@@ -1,9 +1,12 @@
-<?php require_once("include/DB.php");?>
 <?php require_once("include/Sessions.php");?>
 <?php require_once("include/Functions.php");?>
+<?php require_once("include/DB.php");?>
+<?php Confirm_Login();?>
 <?php include "include/adminHeader.php"?>
-</div>
-</div>
+<div class="container-fluid">
+    <div class="row">
+
+
             <?php include "include/adminMeniu.php"?>
             <div class="panou col-sm-10">
 
@@ -124,7 +127,7 @@ if(strlen($PersonName)>10){$PersonName=substr($PersonName,0, 10).'...';}
             </div><!-- end main areea -->
         </div><!-- container-fluid -->
    </div>
-
+</div>
 
 </body>
 

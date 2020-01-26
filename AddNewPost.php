@@ -1,6 +1,8 @@
-<?php require_once("include/DB.php");?>
 <?php require_once("include/Sessions.php");?>
 <?php require_once("include/Functions.php");?>
+<?php require_once("include/DB.php");?>
+<?php Confirm_Login();?>
+
 <?php
 if(isset($_POST["Submit"])) {
     $Title = mysqli_real_escape_string($Connection, $_POST["Title"]);
@@ -46,11 +48,18 @@ if(isset($_POST["Submit"])) {
 ?>
             <?php include "include/adminHeader.php"?>
             <?php include "include/adminMeniu.php"?>
-            </div>
+<div class="container-fluid">
+    <div class="row">
+
         <div class="panou col-sm-10">
             <div class="page-header">
                 <h1>Adauga un post</h1>
-
+                <div>
+                    <?php
+                    echo Message();
+                    echo SuccessMessage();
+                    ?>
+                </div>
             </div>
             <div>
                 <form action="AddNewPost.php" method="post" enctype="multipart/form-data">

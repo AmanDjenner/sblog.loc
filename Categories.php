@@ -1,6 +1,7 @@
-<?php require_once("include/DB.php");?>
 <?php require_once("include/Sessions.php");?>
 <?php require_once("include/Functions.php");?>
+<?php require_once("include/DB.php");?>
+<?php Confirm_Login();?>
 <?php
 if(isset($_POST["Submit"])) {
     $Category = mysqli_real_escape_string($Connection, $_POST["Category"]);
@@ -33,15 +34,7 @@ if(isset($_POST["Submit"])) {
         }else{
         $_SESSION["ErrorMessage"] = "Categoria adaugata cu erori.";
         Redirect_to("Categories.php");
-//        if (mysqli_affected_rows($Connection)!= 1){
-//            echo '<p>Eruare</p>'.mysqli_connect_error($Connection);
-//            echo $Query;
-//            mysqli_close($Connection);
-//        }
-//        else
-//            {
-//                mysqli_close($Connection);
-//                header("Location:Categories.php");
+
             }
 
         }
@@ -49,8 +42,10 @@ if(isset($_POST["Submit"])) {
 }
 ?>
 <?php include "include/adminHeader.php"?>
-</div>
-</div>
+<div class="container-fluid">
+    <div class="row">
+
+
         <?php include "include/adminMeniu.php"?>
         <div class="panou col-sm-10">
             <div class="page-header">
@@ -91,8 +86,10 @@ if(isset($_POST["Submit"])) {
                         <th>Ora</th>
                         <th>Categorie</th>
                         <th>Autor</th>
+                        <th>Actiune</th>
                     </tr>
                     <?php
+                   global $Connection;
                     $VieWQuery="SELECT  * FROM category ORDER BY data AND time DESC";
                     $Execute=mysqli_query($Connection, $VieWQuery);
                     $SRno=0;
@@ -111,6 +108,7 @@ if(isset($_POST["Submit"])) {
                         <td><?php echo $Time; ?></td>
                         <td><?php echo $Nume; ?></td>
                         <td><?php echo $CreatorName; ?></td>
+                        <td><a href="deleteCategory.php?id=<?php echo $Id; ?>" onclick="return confirm('Doriti sa stergeti aceasta postare?')"><span class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></span></a></td>
                     </tr>
                     <?php } ?>
                 </table>
@@ -119,7 +117,7 @@ if(isset($_POST["Submit"])) {
         </div><!-- end main areea -->
     </div><!-- container-fluid -->
 </div>
-
+</div>
 
 </body>
 

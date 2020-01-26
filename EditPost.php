@@ -1,7 +1,20 @@
-<?php require_once("include/DB.php");?>
 <?php require_once("include/Sessions.php");?>
 <?php require_once("include/Functions.php");?>
+<?php require_once("include/DB.php");?>
+<?php Confirm_Login();?>
 <?php
+
+$SearchQueryParameter = $_GET['Edit'];
+$Connection;
+$Query = "SELECT * FROM admin_panel WHERE id='$SearchQueryParameter' ";
+$ExecuteQuery = mysqli_query($Connection, $Query);
+WHILE ($DataRows = mysqli_fetch_array($ExecuteQuery)) {
+    $TitleToUpdated = $DataRows['title'];
+    $CategoryToUpdated = $DataRows['category'];
+    $ImageToUpdated = $DataRows['image'];
+    $PostToUpdated = $DataRows['post'];
+}
+
 if(isset($_POST["Submit"])) {
     $Title = mysqli_real_escape_string($Connection, $_POST["Title"]);
     $Category = mysqli_real_escape_string($Connection, $_POST["Category"]);
@@ -10,11 +23,15 @@ if(isset($_POST["Submit"])) {
     $CurrentTime = time();
     $Data = strftime("%d-%b-%Y ", $CurrentTime);
     $Time = strftime("%H:%M:%S", $CurrentTime);
+    $Image = $ImageToUpdated;
     $Data;
     $Time;
     $Admin="Verdes Gheorghi";
-    $Image=$_FILES["Image"]["name"];
+    if (!empty($_FILES["Image"]["name"])) {
+        $Image=$_FILES["Image"]["name"];
+    }
     $Target="Uploads/images/".basename($Image);
+    $OldImage = "Uploads/images/" . $ImageToUpdated;
 
         global $Connection;
         $EditFromURL=$_GET['Edit'];
@@ -29,9 +46,12 @@ if(isset($_POST["Submit"])) {
                     where id='$EditFromURL'
                      ";
         $Execute=mysqli_query(  $Connection, $Query);
-        move_uploaded_file($_FILES["Image"]["tmp_name"],$Target);
         if ($Execute){
+            if (!empty($_FILES["Image"]["name"])) {
+                unlink($OldImage);
+            }
             $_SESSION["SuccessMessage"] = "Postul a fost redactat cu succes.";
+            move_uploaded_file($_FILES["Image"]["tmp_name"], $Target);
             Redirect_to("Dashboard.php");
         }else{
             $_SESSION["ErrorMessage"] = "Postul a fost redactat cu erori.";
@@ -69,6 +89,9 @@ if(isset($_POST["Submit"])) {
 <body>
 <div class="container-fluid">
     <?php include "include/adminMeniu.php"?>
+    <div class="container-fluid">
+        <div class="row">
+
         <div class="panou col-sm-10">
             <div class="page-header">
                 <h1>Update post</h1>
@@ -78,18 +101,7 @@ if(isset($_POST["Submit"])) {
                     ?>
                 </div>
             </div>
-                <?php
-                    $SearchQueryParameter=$_GET['Edit'];
-                    $Connection;
-                    $Query="SELECT * FROM admin_panel WHERE id='$SearchQueryParameter' ";
-                    $ExecuteQuery=mysqli_query($Connection, $Query);
-                    WHILE ($DataRows=mysqli_fetch_array($ExecuteQuery)){
-                        $TitleToUpdated=$DataRows['title'];
-                        $CategoryToUpdated=$DataRows['category'];
-                        $ImageToUpdated=$DataRows['image'];
-                        $PostToUpdated=$DataRows['post'];
-                    }
-                ?>
+
             <div>
                 <form action="EditPost.php?Edit=<?php echo $SearchQueryParameter; ?>" method="post" enctype="multipart/form-data">
                     <fieldset>
@@ -144,6 +156,7 @@ if(isset($_POST["Submit"])) {
 
         </div><!-- end main areea -->
     </div><!-- container-fluid -->
+</div>
 </div>
 
 

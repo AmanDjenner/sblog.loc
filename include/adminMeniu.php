@@ -13,7 +13,7 @@
                 &nbsp;Categorii</a></li>
         <li><a  href="#"><span class="glyphicon glyphicon-user"></span>
                 &nbsp;Utilizatori</a></li>
-        <li><a  href="#">
+        <li><a  href="admin.php">
                 <span class="glyphicon glyphicon-user"></span>
                 &nbsp;Administrator</a></li>
         <li><a  href="comments.php">

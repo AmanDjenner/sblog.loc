@@ -12,6 +12,18 @@ body{
     color: #292929;
     min-height: 500px;
 }
+.bk{
+    background-color: #fff;
+    height: 100vh;
+}
+.panou_log{
+
+    display: flex;
+    color: #292929;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 /* #side_menu a{
     color:#9fb1c2
 } */
@@ -38,7 +50,9 @@ body{
 #footer p{
     padding: 15px;
 }
-
+.align-td td {
+    vertical-align: middle !important;
+}
 
 
 

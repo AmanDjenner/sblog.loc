@@ -1,13 +1,15 @@
-<?php require_once("include/DB.php");?>
 <?php require_once("include/Sessions.php");?>
 <?php require_once("include/Functions.php");?>
+<?php require_once("include/DB.php");?>
+<?php Confirm_Login();?>
 <?php include "include/adminHeader.php"?>
+
 </div>
 </div>
             <?php include "include/adminMeniu.php"?>
-<!--            navbar-->
+<div class="container-fluid">
+    <div class="row">
 
-<!--            navbar-->
             <div class="panou col-sm-10">
                 <div class="page-header">
 
@@ -20,7 +22,7 @@
                     </div>
                 </div>
                 <div class="table-responsive">
-                <table class="table table-striped table-hover">
+                <table class="table table-striped table-hover align-td">
                     <tr>
                             <th>No</th>
                             <th>Imagine</th>
@@ -46,13 +48,13 @@
                 $Post = $DataRows["post"];
                     $SrNo++;
                 ?>
-                <tr class="justify-content-center">
+                <tr class="justify-content-center ">
                     <td><?php echo $SrNo?></td>
-                    <td><img src="Uploads/images/<?php echo $Image?>" width="35px" height="35px" </td>
-                    <td>
+                    <td><img class="img-fluid" src="Uploads/images/<?php echo $Image?>" width="100px" </td>
+                    <td class="text-center">
                         <?php
-                            if (strlen($Title)>66){$Title= substr($Title,0,66)."...";}
-                                echo $Title
+//                            if (strlen($Title)>66){$Title= substr($Title,0,66)."...";}
+                               echo $Title;
                         ?>
                     </td>
                     <td width="100px"><?php echo $Data?></td>
@@ -66,12 +68,10 @@
                         $ExecuteApproved=mysqli_query($Connection,$QueryApproved);
                         $RowsApproved=mysqli_fetch_array($ExecuteApproved);
                         $TotalApproved=array_shift($RowsApproved);
-                        if ($TotalApproved>0){
                         ?>
                         <span class="label pull-left label-success">
                         <?php echo $TotalApproved ?>
                         </span>
-                       <?php } ?>
 
                         <?php
                         $Connection;
@@ -96,7 +96,7 @@
                             <span class="btn btn-warning">
                                 <i class="fa fa-pencil" aria-hidden="true"></i></span>
                         </a>
-                        <a href="DeletePost.php?id=<?php echo $PostID; ?>">
+                        <a href="DeletePost.php?id=<?php echo $PostID; ?>" onclick="return confirm('Doriti sa stergeti aceasta postare?')">
                             <span class="btn btn-danger">
                                 <i class="fa fa-trash" aria-hidden="true"></i></span>
                         </a>
