@@ -14,7 +14,7 @@ if(isset($_POST["Submit"])) {
     $Time = strftime("%H:%M:%S", $CurrentTime);
     $Data;
     $Time;
-    $Admin="Verdes Gheorghi";
+    $Admin=$_SESSION["UserName"];
     $Image=$_FILES["Image"]["name"];
     $Target="Uploads/images/".basename($_FILES["Image"]["name"]);
     if(empty($Title)) {
@@ -36,7 +36,7 @@ if(isset($_POST["Submit"])) {
         move_uploaded_file($_FILES["Image"]["tmp_name"],$Target);
         if ($Execute){
             $_SESSION["SuccessMessage"] = "Postul a fost adaugat cu succes.";
-            Redirect_to("AddNewPost.php");
+//            Redirect_to("AddNewPost.php");
         }else{
             $_SESSION["ErrorMessage"] = "Postul a fost adaugat cu erori.";
             Redirect_to("AddNewPost.php");

@@ -68,6 +68,7 @@
                         $ExecuteApproved=mysqli_query($Connection,$QueryApproved);
                         $RowsApproved=mysqli_fetch_array($ExecuteApproved);
                         $TotalApproved=array_shift($RowsApproved);
+
                         ?>
                         <span class="label pull-left label-success">
                         <?php echo $TotalApproved ?>
@@ -79,13 +80,13 @@
                         $ExecuteUnApproved=mysqli_query($Connection,$QueryUnApproved);
                         $RowsUnApproved=mysqli_fetch_array($ExecuteUnApproved);
                         $TotalUnApproved=array_shift($RowsUnApproved);
-                        if ($TotalUnApproved>0){
+
                             ?>
                         <a href="comments.php?id=<?php echo $PostID?>"><span class="label pull-right label-danger">
                             <?php echo $TotalUnApproved ?></span>
                         </a>
 
-                        <?php } ?>
+
 
 
 

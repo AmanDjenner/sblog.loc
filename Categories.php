@@ -12,7 +12,7 @@ if(isset($_POST["Submit"])) {
     $Data;
     $Time;
 
-    $Admin="Verdes Gheorghi";
+    $Admin=$_SESSION["UserName"];
     if(empty($Category)) {
         /** @var TYPE_NAME $_SESSION */
         $_SESSION["ErrorMessage"] = "Completati cimpurile!";

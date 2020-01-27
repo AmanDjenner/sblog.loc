@@ -37,7 +37,7 @@
         <li><a  href="#">
                 <span class="glyphicon glyphicon-equalizer"></span>
                 &nbsp;Live Blog</a></li>
-        <li><a  href="#">
+        <li><a  href="Logout.php" onclick="return confirm('Cu sigurață doriți să părăsiți panoul de administrare ?')">
                 <span class="glyphicon glyphicon-log-out"></span>
                 &nbsp;Iesire</a></li>
     </ul>

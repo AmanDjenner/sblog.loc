@@ -53,6 +53,7 @@
                                 $PersonName = $DataRows["name"];
                                 $PersonComment = $DataRows["comment"];
                                 $CommentedPostId = $DataRows["admin_panel_id"];
+
                                 $SrNo++;
 if(strlen($PersonComment)>215){$PersonComment=substr($PersonComment,0, 215).'...';}
 if(strlen($PersonName)>10){$PersonName=substr($PersonName,0, 10).'...';}
@@ -80,6 +81,7 @@ if(strlen($PersonName)>10){$PersonName=substr($PersonName,0, 10).'...';}
                                 <th>Data</th>
                                 <th>Nume</th>
                                 <th>Comentariu</th>
+                                <th>Acceptat de</th>
                                 <th>Anulează</th>
                                 <th>Șterge</th>
                                 <th>Detalii</th>
@@ -103,6 +105,7 @@ if(strlen($PersonName)>10){$PersonName=substr($PersonName,0, 10).'...';}
                                 $CommentData = $DataRows["datatime"];
                                 $PersonName = $DataRows["name"];
                                 $PersonComment = $DataRows["comment"];
+                                $ApproveredBy = $DataRows["approveredby"];
                                 $CommentedPostId = $DataRows["admin_panel_id"];
                                 $SrNo++;
                                 if(strlen($PersonComment)>215){$PersonComment=substr($PersonComment,0, 215).'...';}
@@ -112,7 +115,9 @@ if(strlen($PersonName)>10){$PersonName=substr($PersonName,0, 10).'...';}
                                     <td><?php echo htmlentities($SrNo) ; ?></td>
                                     <td width="100px"><?php echo htmlentities($CommentData); ?></td>
                                     <td class="text-primary"><?php echo htmlentities($PersonName); ?></td>
+
                                     <td><?php echo htmlentities($PersonComment); ?></td>
+                                    <td class="text-primary"><?php echo htmlentities($ApproveredBy); ?></td>
                                     <td><a href="disApprovedComments.php?id=<? echo $CommentId ?>&post=<? echo $CommentedPostId ?>">
                                             <span class="btn btn-primary"><i class="fa fa-reply" aria-hidden="true"></i></span></a></td>
                                     <td><a href="dropComments.php?id=<? echo $CommentId ?>">

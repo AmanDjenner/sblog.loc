@@ -7,7 +7,8 @@ if (isset($_GET['id'])){
     $IdFromURL=$_GET['id'];
     $IdPost=$_GET['post'];
     $Connection;
-    $Query="UPDATE comments SET status='OFF' 
+    $Admin=$_SESSION["UserName"];
+    $Query="UPDATE comments SET status='OFF', approveredby='$Admin' 
         where id='$IdFromURL'";
     $Execute = mysqli_query($Connection, $Query);
     if ($Execute) {

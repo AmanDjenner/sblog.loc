@@ -26,7 +26,7 @@ if(isset($_POST["Submit"])) {
     $Image = $ImageToUpdated;
     $Data;
     $Time;
-    $Admin="Verdes Gheorghi";
+    $Admin=$_SESSION["UserName"];
     if (!empty($_FILES["Image"]["name"])) {
         $Image=$_FILES["Image"]["name"];
     }

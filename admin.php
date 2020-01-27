@@ -15,7 +15,7 @@ if(isset($_POST["Submit"])) {
     $Data;
     $Time;
 
-    $Admin="Verdes Gheorghi";
+    $Admin=$_SESSION["UserName"];
     if(empty($UserName) || empty($Password) ||empty($ConfirmPassword)) {
         /** @var TYPE_NAME $_SESSION */
         $_SESSION["ErrorMessage"] = "Completati cimpurile!";

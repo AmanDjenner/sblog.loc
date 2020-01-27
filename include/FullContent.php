@@ -19,8 +19,8 @@
                 $_SESSION["ErrorMessage"] = "Un comentariu nu poate fi mai mic de 10 simboluri";
             } else {
 
-                $Query="INSERT INTO comments (datatime,name,email,comment,status,admin_panel_id)
-                        VALUES ('$DataTime', '$Name', '$Email','$Comment', 'OFF','$PostID2')";
+                $Query="INSERT INTO comments (datatime,name,email,comment,approveredby,status,admin_panel_id,)
+                        VALUES ('$DataTime', '$Name', '$Email','$Comment', 'ApproveredBy', 'OFF','$PostID2',)";
                 $Execute = mysqli_query($Connection, $Query);
                 if ($Execute) {
                     $_SESSION["SuccessMessage"] = "Comentariul a fost adaugat cu succes.";
@@ -85,10 +85,7 @@
                                                        <!--                           </div>-->
                                                        <div class="post">
                                                            <p>
-                                                               <?php
-                                                               echo $Post;
-
-                                                               ?>
+                                                               <?php echo nl2br($Post); ?>
                                                            </p>
                                                        </div>
                                                </div>
@@ -98,7 +95,7 @@
                                        <div> <hr>
                                            <br>
                                        </div> <div class="d-flex flex-row-reverse justify-content-between  mx-2" ">
-                                       <a href="javascript:history.go(-1)"><span class=" btn btn-warning px-5 ">Back</span></a>
+                                       <a href="javascript:history.go(-1)"><span class=" btn btn-warning px-5 "><< Înapoi</span></a>
                                        <script src="js/JavaScript.js"></script>
                                        <div class="pluso col-8 pb-4" data-background="transparent" data-options="medium,square,line,horizontal,counter,theme=04" data-services="vkontakte,odnoklassniki,facebook,twitter,google,moimir,email,print"></div>
                                     </div>
@@ -119,13 +116,14 @@
                         $CommenterName = $DataRows["name"];
                         $Comments = $DataRows["comment"];
 
+
                     ?>
                     <div class=" d-flex flex-row border border-light rounded" >
                         <img class="float-left p-3" src="../img/avatar/no-avatar.png" alt="no-avatar" width="85px" height="100px">
                        <div class=" CommentBlock d-flex flex-column m-2 rounded " >
                           <div class="mx-3  text-info font-weight-bold"> <span class="text-dark">Nume: </span><?php echo $CommenterName; ?></div>
                            <div class="mx-3 pb-1 text-secondary border-bottom  border-secondary"><span class=" text-dark font-weight-bold">Adăugat la: </span><?php echo $CommentData; ?></div>
-                               <div class=" commentbyuser mb-3 mx-3"><?php echo $Comments;  ?></div>
+                               <div class=" commentbyuser mb-3 mx-3"><?php echo nl2br($Comments);  ?></div>
                        </div>
 
                     </div> <br>
@@ -140,30 +138,70 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="basic-addon1">Nume:</span>
                                     </div>
-                                    <input type="text" name="Name" class="form-control" placeholder="Name" aria-label="Name" aria-describedby="basic-addon1">
+                                    <input type="text" name="Name" class="form-control" aria-label="<?php
+                                    $PostName = $_POST['Name'];
+                                    if (isset($PostName)) {
+                                        echo $PostName;
+                                    }else
+                                        echo 'Name';
+                                    ?>" aria-label="Name" aria-describedby="basic-addon1">"
+
                                 </div>
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="basic-addon1">E-mail:</span>
                                     </div>
                                     <input type="email" name="Email" class="form-control" placeholder="E-mail" aria-label="E-mail" aria-describedby="basic-addon1">
+                                    <?php
+                                    $PostEmail = $_POST['email'];
+                                    if (isset($PostEmail)) echo $PostEmail;
+                                    ?>
                                 </div>
+                                <script>
+                                    var maxCount = 500;
+                                    var redCount = 0;
+                                    $("#count").text(maxCount);
+                                    function getCount() {
+                                        var count = maxCount - $("#comentText").val().length;
+                                        $("#count").text(count);
+                                        if (count <= redCount) {
+                                            $(".inform-text").addClass("text-danger");
+                                        } else if (count > 0 && $(".inform-text").hasClass("text-danger")) {
+                                            $(".inform-text").removeClass("text-danger");
+
+                                            $("#submit-button").removeClass("disabled");
+
+                                        }
+                                        if (count <= 0) {
+                                            // $("#submit-button").addClass("disabled");
+                                            $("#submit-button").attr("disabled", true);
+
+                                        } else if (count > 0 )
+                                        {
+                                            $("#submit-button").attr("disabled", false);
+
+                                        }
+                                    }
+                                </script>
+                                <p class="inform-text">Количество оставшихся символов: <span id="count"></span></p>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">Comentariu:</span>
                                     </div>
-                                    <textarea name="Comment" class="form-control" aria-label="coment"></textarea>
+                                    <textarea id="comentText" name="Comment" class="form-control" aria-label="coment" oninput="getCount()"> </textarea>
                                 </div>
 
-
                                 <br>
-                                <input class="btn btn-success btn-block" type="Submit" name="Submit" value="Adaugă commentariu">
+                                <button id="submit-button" class="btn btn-success btn-block " type="Submit"  name="Submit" >Adaugă comentariu</button>
+
 
                             </fieldset>
                             <br>
                         </form>
 
                     </div>
-        </div>
+                    </div>
+                    </div>
+                    </div>
 
 
