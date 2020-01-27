@@ -58,78 +58,78 @@ if(isset($_POST["Submit"])) {
 <div class="container-fluid">
     <div class="row">
 
-<?php include "include/adminMeniu.php"?>
-<div class="panou col-sm-10">
-    <div class="page-header">
-        <h1>Adminka</h1>
-        <div><?php
-            echo Message();
-            echo SuccessMessage();
-            ?>
-        </div>
-    </div>
-    <div>
-        <form action="admin.php" method="post">
-            <fieldset>
-                <div class="form-group">
-                    <label for="userName"><span class="FieldInfo">Utilizator:</span></label>
-                    <input class="form-control" type="text" name="userName" id="userName" placeholder="userName" >
+        <?php include "include/adminMeniu.php"?>
+        <div class="panou col-sm-10">
+            <div class="page-header">
+                <h1>Adminka</h1>
+                <div><?php
+                    echo Message();
+                    echo SuccessMessage();
+                    ?>
                 </div>
-                <br>
-                <div class="form-group">
-                    <label for="password"><span class="FieldInfo">Parola:</span></label>
-                    <input class="form-control" type="password" name="password" id="password" placeholder="password" >
-                </div>
-                <br>
-                <div class="form-group">
-                    <label for="confirmPassword"><span class="FieldInfo">Confirma parola:</span></label>
-                    <input class="form-control" type="password" name="confirmPassword" id="confirmPassword" placeholder="confirmPassword" >
-                </div>
-                <br>
-                <input class="btn btn-success btn-block" type="Submit" name="Submit" value="Adaugă administrator">
-            </fieldset>
+            </div>
+            <div>
+                <form action="admin.php" method="post">
+                    <fieldset>
+                        <div class="form-group">
+                            <label for="userName"><span class="FieldInfo">Utilizator:</span></label>
+                            <input class="form-control" type="text" name="userName" id="userName" placeholder="userName" >
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label for="password"><span class="FieldInfo">Parola:</span></label>
+                            <input class="form-control" type="password" name="password" id="password" placeholder="password" >
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label for="confirmPassword"><span class="FieldInfo">Confirma parola:</span></label>
+                            <input class="form-control" type="password" name="confirmPassword" id="confirmPassword" placeholder="confirmPassword" >
+                        </div>
+                        <br>
+                        <input class="btn btn-success btn-block" type="Submit" name="Submit" value="Adaugă administrator">
+                    </fieldset>
+                    <br>
+                </form>
+            </div>
             <br>
-        </form>
-    </div>
-    <br>
-    <div class="table-responsive">
-        <table class="table table-striped table-hover">
-            <tr>
-                <th>ID</th>
-                <th>Data</th>
-                <th>Ora</th>
-                <th>Administrator</th>
-                <th>Adaugat de</th>
-                <th>Actiune</th>
-            </tr>
-            <?php
-            global $Connection;
-            $VieWQuery="SELECT  * FROM registration ORDER BY data AND time DESC";
-            $Execute=mysqli_query($Connection, $VieWQuery);
-            $SRno=0;
+            <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <tr>
+                        <th>ID</th>
+                        <th>Data</th>
+                        <th>Ora</th>
+                        <th>Administrator</th>
+                        <th>Adaugat de</th>
+                        <th>Actiune</th>
+                    </tr>
+                    <?php
+                    global $Connection;
+                    $VieWQuery="SELECT  * FROM registration ORDER BY data AND time DESC";
+                    $Execute=mysqli_query($Connection, $VieWQuery);
+                    $SRno=0;
 
-            While($DataRows=mysqli_fetch_array( $Execute)){
-                $Id=$DataRows["id"];
-                $Data=$DataRows["data"];
-                $Time=$DataRows["time"];
-                $Nume=$DataRows["username"];
-                $CreatorName=$DataRows["addedby"];
-                $SRno++
-                ?>
-                <tr>
-                    <td><?php echo $SRno; ?></td>
-                    <td><?php echo $Data; ?></td>
-                    <td><?php echo $Time; ?></td>
-                    <td><?php echo $Nume; ?></td>
-                    <td><?php echo $CreatorName; ?></td>
-                    <td><a href="deleteUser.php?id=<?php echo $Id; ?>"><span class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></span></a></td>
-                </tr>
-            <?php } ?>
-        </table>
-    </div>
+                    While($DataRows=mysqli_fetch_array( $Execute)){
+                        $Id=$DataRows["id"];
+                        $Data=$DataRows["data"];
+                        $Time=$DataRows["time"];
+                        $Nume=$DataRows["username"];
+                        $CreatorName=$DataRows["addedby"];
+                        $SRno++
+                        ?>
+                        <tr>
+                            <td><?php echo $SRno; ?></td>
+                            <td><?php echo $Data; ?></td>
+                            <td><?php echo $Time; ?></td>
+                            <td><?php echo $Nume; ?></td>
+                            <td><?php echo $CreatorName; ?></td>
+                            <td><a href="deleteUser.php?id=<?php echo $Id; ?>"><span class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></span></a></td>
+                        </tr>
+                    <?php } ?>
+                </table>
+            </div>
 
-</div><!-- end main areea -->
-</div><!-- container-fluid -->
+        </div><!-- end main areea -->
+    </div><!-- container-fluid -->
 </div>
 </div>
 

@@ -13,18 +13,18 @@ function Login_Attempt($UserName,$Password){
     global $Connection;
     $Query="SELECT * FROM registration
             WHERE username='$UserName' AND password='$Password'";
-            $Execute=mysqli_query($Connection, $Query);
-            if($admin=mysqli_fetch_assoc($Execute)){
-                return $admin;
-            }else{
-                return null;
-            }
+    $Execute=mysqli_query($Connection, $Query);
+    if($admin=mysqli_fetch_assoc($Execute)){
+        return $admin;
+    }else{
+        return null;
+    }
 }
- function Login(){
+function Login(){
     if(isset($_SESSION['User_id'])){
         return true;
     }
- }
+}
 
 function Confirm_Login() {
     if(!Login()){

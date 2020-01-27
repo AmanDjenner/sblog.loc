@@ -33,9 +33,9 @@ if(isset($_POST["Submit"])) {
     $Target="Uploads/images/".basename($Image);
     $OldImage = "Uploads/images/" . $ImageToUpdated;
 
-        global $Connection;
-        $EditFromURL=$_GET['Edit'];
-        $Query = "UPDATE admin_panel SET
+    global $Connection;
+    $EditFromURL=$_GET['Edit'];
+    $Query = "UPDATE admin_panel SET
                             data='$Data', 
                             time='$Time', 
                             title='$Title', 
@@ -45,18 +45,18 @@ if(isset($_POST["Submit"])) {
                             post='$Post'
                     where id='$EditFromURL'
                      ";
-        $Execute=mysqli_query(  $Connection, $Query);
-        if ($Execute){
-            if (!empty($_FILES["Image"]["name"])) {
-                unlink($OldImage);
-            }
-            $_SESSION["SuccessMessage"] = "Postul a fost redactat cu succes.";
-            move_uploaded_file($_FILES["Image"]["tmp_name"], $Target);
-            Redirect_to("Dashboard.php");
-        }else{
-            $_SESSION["ErrorMessage"] = "Postul a fost redactat cu erori.";
-            Redirect_to("Dashboard.php");
+    $Execute=mysqli_query(  $Connection, $Query);
+    if ($Execute){
+        if (!empty($_FILES["Image"]["name"])) {
+            unlink($OldImage);
         }
+        $_SESSION["SuccessMessage"] = "Postul a fost redactat cu succes.";
+        move_uploaded_file($_FILES["Image"]["tmp_name"], $Target);
+        Redirect_to("Dashboard.php");
+    }else{
+        $_SESSION["ErrorMessage"] = "Postul a fost redactat cu erori.";
+        Redirect_to("Dashboard.php");
+    }
 
 
 
@@ -92,71 +92,71 @@ if(isset($_POST["Submit"])) {
     <div class="container-fluid">
         <div class="row">
 
-        <div class="panou col-sm-10">
-            <div class="page-header">
-                <h1>Update post</h1>
-                <div><?php
-                    echo Message();
-                    echo SuccessMessage();
-                    ?>
+            <div class="panou col-sm-10">
+                <div class="page-header">
+                    <h1>Update post</h1>
+                    <div><?php
+                        echo Message();
+                        echo SuccessMessage();
+                        ?>
+                    </div>
                 </div>
-            </div>
 
-            <div>
-                <form action="EditPost.php?Edit=<?php echo $SearchQueryParameter; ?>" method="post" enctype="multipart/form-data">
-                    <fieldset>
-                        <div class="form-group">
-                            <label for="title"><span class="FieldInfo">Titlu:</span></label>
-                            <input class="form-control" type="text" name="Title" id="title" placeholder="Titlu" value="<?php echo $TitleToUpdated ?>" >
-                        </div>
-<!--                        //inceputul blocului categorie-->
-                        <div class="form-group col-lg-4 col-sm-12 ">
-                            <span class="FieldInfo"><strong>Categoria postului:<p style="color:#000"><?php echo $CategoryToUpdated ?></p></strong></span>
-                            <span class="FieldInfo"  ><strong>Imaginea postului: </strong><img src="Uploads/images/<?php echo $ImageToUpdated ?>" width="120px"></span>
-                            <span><?php echo $ImageToUpdated ?></span>
+                <div>
+                    <form action="EditPost.php?Edit=<?php echo $SearchQueryParameter; ?>" method="post" enctype="multipart/form-data">
+                        <fieldset>
+                            <div class="form-group">
+                                <label for="title"><span class="FieldInfo">Titlu:</span></label>
+                                <input class="form-control" type="text" name="Title" id="title" placeholder="Titlu" value="<?php echo $TitleToUpdated ?>" >
+                            </div>
+                            <!--                        //inceputul blocului categorie-->
+                            <div class="form-group col-lg-4 col-sm-12 ">
+                                <span class="FieldInfo"><strong>Categoria postului:<p style="color:#000"><?php echo $CategoryToUpdated ?></p></strong></span>
+                                <span class="FieldInfo"  ><strong>Imaginea postului: </strong><img src="Uploads/images/<?php echo $ImageToUpdated ?>" width="120px"></span>
+                                <span><?php echo $ImageToUpdated ?></span>
 
-                        </div>
-<!--                        //sfirsit categorie-->
-<!--                        inceput imagine-->
-                        <div class="form-group col-sm-12 col-lg-8">
-                            <label for="categoryselect"><span class="FieldInfo">Schimba categoria:</span></label>
-                            <select class="form-control" id="categoryselect" name="Category"   placeholder="Selecteaza categoria" >
-                                <?php
-                                $VieWQuery="SELECT  * FROM category ORDER BY data AND time DESC";
-                                $Execute=mysqli_query($Connection, $VieWQuery);
-                                While($DataRows=mysqli_fetch_array($Execute)){
-                                    $Id=$DataRows["id"];
-                                    $Nume=$DataRows["nume"];
-                                    ?>
-                                    <option><?php echo $Nume?></option>
-                                <?php } ?>
-                            </select>
-                            <br> <br> <br>
-                            <label for="imageSelect"><span class="FieldInfo">Alege o alta imagine:</span></label>
+                            </div>
+                            <!--                        //sfirsit categorie-->
+                            <!--                        inceput imagine-->
+                            <div class="form-group col-sm-12 col-lg-8">
+                                <label for="categoryselect"><span class="FieldInfo">Schimba categoria:</span></label>
+                                <select class="form-control" id="categoryselect" name="Category"   placeholder="Selecteaza categoria" >
+                                    <?php
+                                    $VieWQuery="SELECT  * FROM category ORDER BY data AND time DESC";
+                                    $Execute=mysqli_query($Connection, $VieWQuery);
+                                    While($DataRows=mysqli_fetch_array($Execute)){
+                                        $Id=$DataRows["id"];
+                                        $Nume=$DataRows["nume"];
+                                        ?>
+                                        <option><?php echo $Nume?></option>
+                                    <?php } ?>
+                                </select>
+                                <br> <br> <br>
+                                <label for="imageSelect"><span class="FieldInfo">Alege o alta imagine:</span></label>
                                 <input type="File"  class="form-control" name="Image" id="imageSelect" accept="image/jpeg,image/png,image/gif" >
 
-                        </div>
-<!--                        sfirsit imagine-->
-<!--                        inceput post-->
-                        <div class="form-group ">
-                            <label for="postarea"><span class="FieldInfo pt-4">Post:</span></label>
-                            <textarea class="form-control" name="Post" id="postarea" >
+                            </div>
+                            <!--                        sfirsit imagine-->
+                            <!--                        inceput post-->
+                            <div class="form-group ">
+                                <label for="postarea"><span class="FieldInfo pt-4">Post:</span></label>
+                                <textarea class="form-control" name="Post" id="postarea" >
                                 <?php echo $PostToUpdated ?>
                             </textarea>
-                        </div>
-<!--                        sfirsit post-->
+                            </div>
+                            <!--                        sfirsit post-->
 
+                            <br>
+                            <input class="btn btn-success btn-block" type="Submit" name="Submit" value="Update post">
+                        </fieldset>
                         <br>
-                        <input class="btn btn-success btn-block" type="Submit" name="Submit" value="Update post">
-                    </fieldset>
-                    <br>
-                </form>
+                    </form>
 
-            </div>
+                </div>
 
-        </div><!-- end main areea -->
-    </div><!-- container-fluid -->
-</div>
+            </div><!-- end main areea -->
+        </div><!-- container-fluid -->
+    </div>
 </div>
 
 

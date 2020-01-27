@@ -10,10 +10,10 @@ if (isset($_GET['id'])){
     $Execute = mysqli_query($Connection, $Query);
     if ($Execute) {
         $_SESSION["SuccessMessage"] = "Userul a fost stears cu succes";
-    Redirect_to("admin.php");
+        Redirect_to("admin.php");
     } else {
         $_SESSION["ErrorMessage"] = "Error! Userul nu a fost sters";
-                         Redirect_to("dmin.php");
+        Redirect_to("dmin.php");
     }
 }
 

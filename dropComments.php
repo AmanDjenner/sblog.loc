@@ -10,10 +10,10 @@ if (isset($_GET['id'])){
     $Execute = mysqli_query($Connection, $Query);
     if ($Execute) {
         $_SESSION["SuccessMessage"] = "Comentariul cu ID-ul .$IdFromURL  a fost sters";
-    Redirect_to("comments.php");
+        Redirect_to("comments.php");
     } else {
         $_SESSION["ErrorMessage"] = "Error! Comentariul cu ID-ul .$IdFromURL nu a fost sters";
-                         Redirect_to("comments.php");
+        Redirect_to("comments.php");
     }
 }
 

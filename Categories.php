@@ -29,15 +29,15 @@ if(isset($_POST["Submit"])) {
                     ('$Data','$Time','$Category','$Admin')";
         $result=mysqli_query(  $Connection, $Query);
         if ($result){
-        $_SESSION["SuccessMessage"] = "Categoria a fost adaugata cu succes.";
-        Redirect_to("Categories.php");
+            $_SESSION["SuccessMessage"] = "Categoria a fost adaugata cu succes.";
+            Redirect_to("Categories.php");
         }else{
-        $_SESSION["ErrorMessage"] = "Categoria adaugata cu erori.";
-        Redirect_to("Categories.php");
-
-            }
+            $_SESSION["ErrorMessage"] = "Categoria adaugata cu erori.";
+            Redirect_to("Categories.php");
 
         }
+
+    }
 
 }
 ?>
@@ -89,7 +89,7 @@ if(isset($_POST["Submit"])) {
                         <th>Actiune</th>
                     </tr>
                     <?php
-                   global $Connection;
+                    global $Connection;
                     $VieWQuery="SELECT  * FROM category ORDER BY data AND time DESC";
                     $Execute=mysqli_query($Connection, $VieWQuery);
                     $SRno=0;
@@ -101,15 +101,15 @@ if(isset($_POST["Submit"])) {
                         $Nume=$DataRows["nume"];
                         $CreatorName=$DataRows["creatorname"];
                         $SRno++
-                    ?>
-                    <tr>
-                        <td><?php echo $SRno; ?></td>
-                        <td><?php echo $Data; ?></td>
-                        <td><?php echo $Time; ?></td>
-                        <td><?php echo $Nume; ?></td>
-                        <td><?php echo $CreatorName; ?></td>
-                        <td><a href="deleteCategory.php?id=<?php echo $Id; ?>" onclick="return confirm('Doriti sa stergeti aceasta postare?')"><span class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></span></a></td>
-                    </tr>
+                        ?>
+                        <tr>
+                            <td><?php echo $SRno; ?></td>
+                            <td><?php echo $Data; ?></td>
+                            <td><?php echo $Time; ?></td>
+                            <td><?php echo $Nume; ?></td>
+                            <td><?php echo $CreatorName; ?></td>
+                            <td><a href="deleteCategory.php?id=<?php echo $Id; ?>" onclick="return confirm('Doriti sa stergeti aceasta postare?')"><span class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></span></a></td>
+                        </tr>
                     <?php } ?>
                 </table>
             </div>

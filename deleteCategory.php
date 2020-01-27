@@ -10,10 +10,10 @@ if (isset($_GET['id'])){
     $Execute = mysqli_query($Connection, $Query);
     if ($Execute) {
         $_SESSION["SuccessMessage"] = "Categoria a fost stearsa cu succes";
-    Redirect_to("Categories.php");
+        Redirect_to("Categories.php");
     } else {
         $_SESSION["ErrorMessage"] = "Error! Categoria nu a fost stersa";
-                         Redirect_to("Categories.php");
+        Redirect_to("Categories.php");
     }
 }
 

@@ -12,10 +12,10 @@ if (isset($_GET['id'])){
     $Execute = mysqli_query($Connection, $Query);
     if ($Execute) {
         $_SESSION["SuccessMessage"] = "Comentariul cu ID-ul .$IdFromURL a fost acceptat.";
-    Redirect_to("comments.php?id=$IdPost");
+        Redirect_to("comments.php?id=$IdPost");
     } else {
         $_SESSION["ErrorMessage"] = "Error! Comentariul cu ID-ul .$IdFromURL nu a fost acceptat.";
-                         Redirect_to("comments.php?id=$IdPost");
+        Redirect_to("comments.php?id=$IdPost");
     }
 }
 

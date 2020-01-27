@@ -46,8 +46,8 @@ if(isset($_POST["Submit"])) {
 
 }
 ?>
-            <?php include "include/adminHeader.php"?>
-            <?php include "include/adminMeniu.php"?>
+<?php include "include/adminHeader.php"?>
+<?php include "include/adminMeniu.php"?>
 <div class="container-fluid">
     <div class="row">
 
@@ -68,34 +68,34 @@ if(isset($_POST["Submit"])) {
                             <label for="title"><span class="FieldInfo">Titlu:</span></label>
                             <input class="form-control" type="text" name="Title" id="title" placeholder="Titlu" >
                         </div>
-<!--                        //inceputul blocului categorie-->
+                        <!--                        //inceputul blocului categorie-->
                         <div class="form-group col-lg-6 col-sm-12 ">
                             <label for="categoryselect"><span class="FieldInfo">Categorie:</span></label>
                             <select class="form-control" id="categoryselect" name="Category"   placeholder="Selecteaza categoria" >
-                        <?php
-                        $VieWQuery="SELECT  * FROM category ORDER BY data AND time DESC";
-                        $Execute=mysqli_query($Connection, $VieWQuery);
-                        While($DataRows=mysqli_fetch_array($Execute)){
-                        $Id=$DataRows["id"];
-                        $Nume=$DataRows["nume"];
-                        ?>
-                                <option><?php echo $Nume?></option>
-                            <?php } ?>
-                                </select>
+                                <?php
+                                $VieWQuery="SELECT  * FROM category ORDER BY data AND time DESC";
+                                $Execute=mysqli_query($Connection, $VieWQuery);
+                                While($DataRows=mysqli_fetch_array($Execute)){
+                                    $Id=$DataRows["id"];
+                                    $Nume=$DataRows["nume"];
+                                    ?>
+                                    <option><?php echo $Nume?></option>
+                                <?php } ?>
+                            </select>
                         </div>
-<!--                        //sfirsit categorie-->
-<!--                        inceput imagine-->
+                        <!--                        //sfirsit categorie-->
+                        <!--                        inceput imagine-->
                         <div class="form-group col-sm-12 col-lg-6">
                             <label for="imageselect"><span class="FieldInfo">Imagine:</span></label>
-                                <input type="file" class="form-control" name="Image" id="imageselect" >
+                            <input type="file" class="form-control" name="Image" id="imageselect" >
                         </div>
-<!--                        sfirsit imagine-->
-<!--                        inceput post-->
+                        <!--                        sfirsit imagine-->
+                        <!--                        inceput post-->
                         <div class="form-group">
                             <label for="postarea"><span class="FieldInfo">Post:</span></label>
                             <textarea class="form-control" name="Post" id="postarea"></textarea>
                         </div>
-<!--                        sfirsit post-->
+                        <!--                        sfirsit post-->
 
                         <br>
                         <input class="btn btn-success btn-block" type="Submit" name="Submit" value="Adaugă post">
